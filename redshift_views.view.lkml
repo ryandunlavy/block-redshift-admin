@@ -169,10 +169,9 @@ view: redshift_data_loads {
 view: redshift_plan_steps {
   #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {
-    # COMMENTING OUT PERSISTANCE FOR NOW SINCE WE DON'T HAVE PDTs ONT EST CONNECTION
-    # datagroup_trigger: nightly
-    # distribution: "query"
-    # sortkeys: ["query"]
+    datagroup_trigger: nightly
+    distribution: "query"
+    sortkeys: ["query"]
     sql:
         WITH redshift_plan_steps AS
           (SELECT
@@ -390,10 +389,9 @@ view: redshift_plan_steps {
 view: redshift_queries {
   # Limited to last 24 hours of queries
   derived_table: {
-    # COMMENTING OUT PERSISTANCE FOR NOW SINCE WE DON'T HAVE PDTs ONT EST CONNECTION
-    # datagroup_trigger: nightly
-    # distribution: "query"
-    # sortkeys: ["query"]
+    datagroup_trigger: nightly
+    distribution: "query"
+    sortkeys: ["query"]
     sql: SELECT
         wlm.query,
         COALESCE(qlong.querytxt,q.substring)::varchar as text,
@@ -579,10 +577,9 @@ view: redshift_slices {
   # Use the STV_SLICES table to view the current mapping of a slice to a node.
   # This table is visible to all users. Superusers can see all rows; regular users can see only their own data.
   derived_table: {
-    # COMMENTING OUT PERSISTANCE FOR NOW SINCE WE DON'T HAVE PDTs ONT EST CONNECTION
-    # datagroup_trigger: nightly
-    # distribution_style: "all"
-    # sortkeys: ["node"]
+    datagroup_trigger: nightly
+    distribution_style: "all"
+    sortkeys: ["node"]
     sql: SELECT slice,node FROM STV_SLICES;;
   }
   dimension: node{
@@ -607,10 +604,9 @@ view: redshift_slices {
 
 view: redshift_tables {
   derived_table: {
-    # COMMENTING OUT PERSISTANCE FOR NOW SINCE WE DON'T HAVE PDTs ONT EST CONNECTION
-    # datagroup_trigger: nightly
-    # distribution_style: all
-    # indexes: ["table_id","table"] # "indexes" translates to an interleaved sort key for Redshift
+    datagroup_trigger: nightly
+    distribution_style: all
+    indexes: ["table_id","table"] # "indexes" translates to an interleaved sort key for Redshift
     # http://docs.aws.amazon.com/redshift/latest/dg/r_SVV_TABLE_INFO.html
     sql: select
         "database"::varchar,
@@ -830,10 +826,9 @@ view: redshift_query_execution {
   #For recent queries based on redshift_queries
   #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {
-    # COMMENTING OUT PERSISTANCE FOR NOW SINCE WE DON'T HAVE PDTs ONT EST CONNECTION
-    # datagroup_trigger: nightly
-    # distribution: "query"
-    # sortkeys: ["query"]
+    datagroup_trigger: nightly
+    distribution: "query"
+    sortkeys: ["query"]
     sql:
         SELECT
           query ||'.'|| seg || '.' || step as id,
