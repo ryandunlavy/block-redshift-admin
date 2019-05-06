@@ -109,9 +109,19 @@ view: redshift_queries {
     dimension: time_executing_roundup5 {
       description: "Time executing, rounded up to the nearest 5 seconds"
       group_label: "Time Executing Buckets"
-      label: "05 seconds"
+      label: "5 seconds"
       type: number
       sql: CEILING(${TABLE}.total_exec_time::float/1000000 / 5)*5 ;;
+      value_format_name: decimal_0
+    }
+    dimension: time_executing_tier {
+      description: "Time executing, output as a descriptive string"
+      group_label: "Time Executing Buckets"
+      label: "Run Time Tier"
+      type: tier
+      tiers: [0,10,20,30,60,120,240]
+      style: interval
+      sql: ${TABLE}.total_exec_time::float/1000000 ;;
       value_format_name: decimal_0
     }
     dimension: time_executing_roundup10 {
