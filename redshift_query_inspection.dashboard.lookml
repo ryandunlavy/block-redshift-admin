@@ -1,31 +1,16 @@
 - dashboard: redshift_query_inspection
   title: Redshift Query Inspection
-  layout: tile
-  tile_size: 50
-  auto_run: true
-
-  filters:
-  - name: query
-    type: number_filter
-    # Commented out due to reported but unreproduced reports of errors with this. (issues/21)
-    # Feel free to re-enable in specific implementations
-    #type: field_filter
-    #explore: redshift_queries
-    #field: redshift_queries.query
-
+  layout: newspaper
+  query_timezone: query_saved
   elements:
-  - name: time_executing
-    type: single_value
-    height: 3
-    width: 8
-    title:
+  - title: Time Executing
+    name: Time Executing
     model: redshift_model
     explore: redshift_queries
-    measures: [redshift_queries.total_time_executing]
-    listen:
-      query: redshift_queries.query
-    limit: '500'
-    column_limit: '50'
+    type: single_value
+    fields: [redshift_queries.total_time_executing]
+    limit: 500
+    column_limit: 50
     custom_color_enabled: false
     custom_color: forestgreen
     show_single_value_title: true
@@ -58,21 +43,22 @@
     series_types: {}
     single_value_title: seconds to run
     value_format: "#,##0.0"
-
-  - name: bytes_scanned
-    type: single_value
-    height: 3
+    listen:
+      query: redshift_queries.query
+    row: 0
+    col: 0
     width: 8
-    title:
+    height: 3
+  - title: Bytes Scanned
+    name: Bytes Scanned
     model: redshift_model
     explore: redshift_query_execution
-    measures: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
+    type: single_value
+    fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
       redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
       redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
-    listen:
-      query: redshift_query_execution.query
-    limit: '500'
-    column_limit: '50'
+    limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     custom_color_enabled: false
     custom_color: forestgreen
@@ -107,20 +93,21 @@
     value_format: '#,##0.0,," Mb"'
     single_value_title: Scanned
     hidden_fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed]
-
-  - name: query_text
-    height: 9
-    width: 16
-    type: table
-    title: Query text
+    listen:
+      query: redshift_query_execution.query
+    row: 0
+    col: 8
+    width: 8
+    height: 3
+  - title: Query text
+    name: Query text
     model: redshift_model
     explore: redshift_queries
-    dimensions: [redshift_queries.text]
-    listen:
-      query: redshift_queries.query
+    type: table
+    fields: [redshift_queries.text]
     sorts: [redshift_queries.text]
-    limit: '500'
-    column_limit: '50'
+    limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     show_view_names: false
     show_row_numbers: false
@@ -154,21 +141,22 @@
       show_hide: show
       first_last: first
       num_rows: '1'
-
-  - name: bytes_distributed
-    type: single_value
-    height: 3
-    width: 8
-    title:
+    listen:
+      query: redshift_queries.query
+    row: 6
+    col: 0
+    width: 24
+    height: 6
+  - title: Bytes Distributed
+    name: Bytes Distributed
     model: redshift_model
     explore: redshift_query_execution
-    measures: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
+    type: single_value
+    fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
       redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
       redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
-    listen:
-      query: redshift_query_execution.query
-    limit: '500'
-    column_limit: '50'
+    limit: 500
+    column_limit: 50
     custom_color_enabled: false
     custom_color: forestgreen
     show_single_value_title: true
@@ -202,21 +190,22 @@
     value_format: '#,##0.0,," Mb"'
     single_value_title: Distributed
     hidden_fields: [redshift_query_execution.total_bytes_broadcast]
-
-  - name: bytes_broadcast
-    type: single_value
-    height: 3
-    width: 8
-    title:
-    model: redshift_model
-    explore: redshift_query_execution
-    measures: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
-      redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
-      redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
     listen:
       query: redshift_query_execution.query
-    limit: '500'
-    column_limit: '50'
+    row: 0
+    col: 16
+    width: 8
+    height: 3
+  - title: Bytes Broadcast
+    name: Bytes Broadcast
+    model: redshift_model
+    explore: redshift_query_execution
+    type: single_value
+    fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
+      redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
+      redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
+    limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     custom_color_enabled: false
     custom_color: forestgreen
@@ -250,21 +239,22 @@
     series_types: {}
     value_format: '#,##0.0,," Mb"'
     single_value_title: Broadcast
-
-  - name: rows_sorted
-    type: single_value
-    height: 3
-    width: 8
-    title:
-    model: redshift_model
-    explore: redshift_query_execution
-    measures: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
-      redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
-      redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
     listen:
       query: redshift_query_execution.query
-    limit: '500'
-    column_limit: '50'
+    row: 3
+    col: 0
+    width: 8
+    height: 3
+  - title: Rows Sorted
+    name: Rows Sorted
+    model: redshift_model
+    explore: redshift_query_execution
+    type: single_value
+    fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
+      redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
+      redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
+    limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     custom_color_enabled: false
     custom_color: forestgreen
@@ -300,21 +290,22 @@
     single_value_title: Rows sorted
     hidden_fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
       redshift_query_execution.total_bytes_scanned]
-
-  - name: was_disk_based
-    type: single_value
-    height: 3
-    width: 8
-    title:
-    model: redshift_model
-    explore: redshift_query_execution
-    measures: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
-      redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
-      redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
     listen:
       query: redshift_query_execution.query
-    limit: '500'
-    column_limit: '50'
+    row: 3
+    col: 8
+    width: 8
+    height: 3
+  - title: Was Disk Based
+    name: Was Disk Based
+    model: redshift_model
+    explore: redshift_query_execution
+    type: single_value
+    fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
+      redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
+      redshift_query_execution.average_step_skew, redshift_query_execution.any_disk_based]
+    limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     custom_color_enabled: false
     custom_color: forestgreen
@@ -351,33 +342,36 @@
     hidden_fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
       redshift_query_execution.total_bytes_scanned, redshift_query_execution.total_rows_sorted_approx,
       redshift_query_execution.average_step_skew]
-
-  - name: query_tables
-    title: "Table Details"
-    height: 6
-    width: 32
-    type: table
+    listen:
+      query: redshift_query_execution.query
+    row: 3
+    col: 16
+    width: 8
+    height: 3
+  - title: Table Details
+    name: Table Details
     model: redshift_model
     explore: redshift_tables
-    dimensions: [redshift_tables.schema, redshift_tables.table, redshift_tables.rows_in_table,
+    type: table
+    fields: [redshift_tables.schema, redshift_tables.table, redshift_tables.rows_in_table,
       redshift_tables.distribution_style, redshift_tables.skew_rows, redshift_tables.encoded,
       redshift_tables.sortkey, redshift_tables.sortkey_encoding, redshift_tables.unsorted,
-      redshift_tables.stats_off]
-    measures: [redshift_query_execution.total_bytes_scanned, redshift_query_execution.emitted_rows_to_table_rows_ratio,
+      redshift_tables.stats_off, redshift_query_execution.total_bytes_scanned, redshift_query_execution.emitted_rows_to_table_rows_ratio,
       redshift_query_execution.any_restricted_scan]
-    listen:
-      query: redshift_queries.query
     sorts: [redshift_query_execution.total_bytes_scanned desc]
-    limit: '40'
-    column_limit: '50'
+    limit: 40
+    column_limit: 50
     query_timezone: America/Los_Angeles
     show_view_names: true
     show_row_numbers: true
     truncate_column_names: false
     hide_totals: false
     hide_row_totals: false
-    table_theme: editable
+    table_theme: gray
     limit_displayed_rows: false
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
     stacking: ''
     show_value_labels: false
     label_density: 25
@@ -399,77 +393,102 @@
     show_silhouette: false
     totals_color: "#808080"
     series_types: {}
-
-  - name: Query Plan Costs
-    title: "Query Plan Costs"
-    height: 14
-    width: 32
+    listen:
+      query: redshift_queries.query
+    row: 12
+    col: 0
+    width: 24
+    height: 6
+  - title: Query Plan Costs
+    name: Query Plan Costs
     model: redshift_model
     explore: redshift_plan_steps
-    type: flamegraph # Ensure this matches the custom vis chart id in admin/visualizations
-    fields: [redshift_plan_steps.parent_step, redshift_plan_steps.step, redshift_plan_steps.step_description, redshift_plan_steps.step_cost]
-    listen:
-      query: redshift_plan_steps.query
-    sorts:
-    - redshift_plan_steps.step
-    limit: '2000'
-    column_limit: '50'
-    diameter: '100%'
-    stepwise_max_scale: 4
+    type: table
+    fields: [redshift_plan_steps.parent_step, redshift_plan_steps.step, redshift_plan_steps.step_description,
+      redshift_plan_steps.step_cost]
+    sorts: [redshift_plan_steps.step]
+    limit: 2000
+    column_limit: 50
     query_timezone: America/Los_Angeles
     show_view_names: false
     show_row_numbers: true
     truncate_column_names: false
     hide_totals: false
     hide_row_totals: false
-    table_theme: editable
+    table_theme: gray
     limit_displayed_rows: false
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    diameter: 100%
+    stepwise_max_scale: 4
     series_types: {}
-
-  - name: plan_steps
-    title: "Query Plan"
-    height: 18
-    width: 32
-    type: table
+    listen:
+      query: redshift_plan_steps.query
+    row: 18
+    col: 0
+    width: 24
+    height: 11
+  - title: Query Plan
+    name: Query Plan
     model: redshift_model
     explore: redshift_plan_steps
-    dimensions: [redshift_plan_steps.step, redshift_plan_steps.parent_step, redshift_plan_steps.operation,
+    type: table
+    fields: [redshift_plan_steps.step, redshift_plan_steps.parent_step, redshift_plan_steps.operation,
       redshift_plan_steps.network_distribution_type, redshift_plan_steps.operation_argument,
       redshift_plan_steps.table, redshift_plan_steps.rows, redshift_plan_steps.bytes]
+    sorts: [redshift_plan_steps.step]
+    limit: 2000
+    column_limit: 50
+    query_timezone: America/Los_Angeles
+    show_view_names: false
+    show_row_numbers: true
+    truncate_column_names: false
+    hide_totals: false
+    hide_row_totals: false
+    table_theme: gray
+    limit_displayed_rows: false
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
     listen:
       query: redshift_plan_steps.query
-    sorts: [redshift_plan_steps.step]
-    limit: '2000'
-    column_limit: '50'
-    query_timezone: America/Los_Angeles
-    show_view_names: false
-    show_row_numbers: true
-    truncate_column_names: false
-    hide_totals: false
-    hide_row_totals: false
-    table_theme: editable
-    limit_displayed_rows: false
-
-  - name: execution
-    title: "Query Execution"
-    height: 18
-    width: 32
-    type: table
+    row: 29
+    col: 0
+    width: 24
+    height: 11
+  - title: Query Execution
+    name: Query Execution
     model: redshift_model
     explore: redshift_query_execution
-    dimensions: [redshift_query_execution.step, redshift_query_execution.label, redshift_query_execution.was_diskbased,
+    type: table
+    fields: [redshift_query_execution.step, redshift_query_execution.label, redshift_query_execution.was_diskbased,
       redshift_query_execution.rows_out, redshift_query_execution.bytes, redshift_query_execution.step_skew,
       redshift_query_execution.step_max_slice_time]
-    listen:
-      query: redshift_query_execution.query
     sorts: [redshift_query_execution.step]
-    limit: '500'
-    column_limit: '50'
+    limit: 500
+    column_limit: 50
     query_timezone: America/Los_Angeles
     show_view_names: false
     show_row_numbers: true
     truncate_column_names: false
     hide_totals: false
     hide_row_totals: false
-    table_theme: editable
+    table_theme: gray
     limit_displayed_rows: false
+    enable_conditional_formatting: false
+    conditional_formatting_include_totals: false
+    conditional_formatting_include_nulls: false
+    listen:
+      query: redshift_query_execution.query
+    row: 40
+    col: 0
+    width: 24
+    height: 13
+  filters:
+  - name: query
+    title: Query
+    type: number_filter
+    default_value:
+    allow_multiple_values: true
+    required: false
