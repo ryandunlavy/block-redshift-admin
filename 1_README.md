@@ -36,21 +36,8 @@
       - [STV_BLOCKLIST](http://docs.aws.amazon.com/redshift/latest/dg/r_STV_BLOCKLIST.html)
       - [STL_LOAD_COMMITS](http://docs.aws.amazon.com/redshift/latest/dg/r_STL_LOAD_COMMITS.html)
     - By default, grants to the above tables will **only allow the Redshift user to [view their own activity](https://docs.aws.amazon.com/redshift/latest/dg/c_visibility-of-data.html)**.
-      Since Looker normally connects as a single Redshift user, this usually means all Looker activity, which is normally fine.
-      If you want the reports to include data from other users you can execute these grants with [SYSLOG ACCESS](https://docs.aws.amazon.com/redshift/latest/dg/r_ALTER_USER.html#alter-user-syslog-access)
-
- * **[Optional] Adding Flame Graph Custom Visualization**
-    - To better visualize the costs of the [query execution plan](https://docs.aws.amazon.com/redshift/latest/dg/c-the-query-plan.html), this block uses a custom visualization to display the hierarchy of steps. Here are the steps to add this visualization to your instance:
-      1. Fork this repository
-      2. Turn on [GitHub Pages](https://help.github.com/articles/configuring-a-publishing-source-for-github-pages/)
-      3. Follow directions on Looker's documentation to add a [new custom visualisation manifest](https://docs.looker.com/admin-options/platform/visualizations#adding_a_new_custom_visualization_manifest):
-          - Name the ID of the visualization as `flamegraph`. In the 'Main' field, the URI of the visualization will be `https://YOUR_DOMAIN_NAME/blocks_redshift_admin/flamegraph.js`
-          - The required dependencies are:
-            - [d3](https://d3js.org/d3.v4.min.js)
-            - [d3-tip](https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js)
-            - [d3-flamegraph](https://cdn.jsdelivr.net/gh/spiermar/d3-flame-graph@2.0.3/dist/d3-flamegraph.min.js)
-    - Full details and examples of the Flame Graph visualization can be found in the Flame Graph for Looker [Github repo](https://github.com/davidtamaki/flamegraph).
-
+    - Since Looker normally connects as a single Redshift user, this usually means all Looker activity, which is normally fine.
+    -  If you want the reports to include data from other users you can execute these grants with [SYSLOG ACCESS](https://docs.aws.amazon.com/redshift/latest/dg/r_ALTER_USER.html#alter-user-syslog-access)
 
  * **[Optional] Change daily PDT trigger** - The default PDT trigger (00:00 UTC) is not selected for any particular timezone, so you may want to offset it so that it does not trigger during your peak hours.
 
