@@ -8,7 +8,7 @@ view: redshift_query_execution {
     sql:
         SELECT
           query ||'.'|| seg || '.' || step as id,
-          query, seg, step,
+          query as query, seg, step,
           label::varchar,
           regexp_substr(label, '^[A-Za-z]+')::varchar as operation,
           CASE WHEN label ilike 'scan%name=%' AND label not ilike '%Internal Worktable'
