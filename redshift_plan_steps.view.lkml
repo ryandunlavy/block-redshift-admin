@@ -36,7 +36,8 @@ view: redshift_plan_steps {
           GROUP BY 1,2,3,4,5,6,7,8,9,10,11,12)
         SELECT
           redshift_plan_steps.*,
-          redshift_plan_steps.cost_hi_numeric - COALESCE(x.sum_children_cost,0) AS incremental_step_cost
+          redshift_plan_steps.cost_hi_numeric - COALESCE(x.sum_children_cost,0) AS incremental_step_cost,
+          ROW_NUMBER() OVER () as pk
         FROM redshift_plan_steps
         LEFT JOIN (SELECT query, parentid, sum_children_cost FROM redshift_plan_steps GROUP BY 1,2,3) AS x
           ON redshift_plan_steps.query = x.query AND redshift_plan_steps.nodeid = x.parentid
@@ -44,6 +45,11 @@ view: redshift_plan_steps {
     ;;
     #TODO?: Currently not extracting the sequential scan column, but I'm not sure if this is useful to extract. What's more useful as far as I can tell are the fields in the filter (operation argument)
 
+    }
+
+    dimension: pk {
+      sql: ${TABLE}.pk ;;
+      primary_key: yes
     }
     dimension: query {
       sql: ${TABLE}.query;;

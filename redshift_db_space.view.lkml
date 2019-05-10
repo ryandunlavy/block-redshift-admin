@@ -24,6 +24,10 @@ view: redshift_db_space {
       group by 1,2
        ;;
   }
+  dimension: pk {
+    sql: ${table} || ${schema} ;;
+    primary_key: yes
+  }
   dimension: table {
     type: string
     sql: ${TABLE}.table ;;

@@ -17,6 +17,7 @@ view: redshift_slices {
     type: number
     value_format_name: id
     sql: ${TABLE}.slice ;;
+    primary_key: yes
   }
   measure: nodes {
     type: count_distinct

@@ -4,7 +4,7 @@ view: redshift_queries {
     datagroup_trigger: nightly
     distribution: "query"
     sortkeys: ["query"]
-    sql: SELECT
+    sql: SELECT DISTINCT
         wlm.query,
         COALESCE(qlong.querytxt,q.substring)::varchar as text,
         SUBSTRING(
@@ -25,7 +25,8 @@ view: redshift_queries {
         wlm.service_class_start_time as start_time,
         wlm.total_queue_time,
         wlm.total_exec_time,
-        q.elapsed --Hmm.. this measure seems to be greater than queue_time+exec_time
+        q.elapsed, --Hmm.. this measure seems to be greater than queue_time+exec_time,
+        ROW_NUMBER() OVER () AS pk
       FROM STL_WLM_QUERY wlm
       LEFT JOIN STV_WLM_SERVICE_CLASS_CONFIG sc ON sc.service_class=wlm.service_class -- Remove this line if access was not granted
       LEFT JOIN SVL_QLOG q on q.query=wlm.query
@@ -36,11 +37,14 @@ view: redshift_queries {
     #STL_QUERY vs SVL_QLOG. STL_QUERY has more characters of query text (4000), but is only retained for "2 to 5 days"
     # STL_WLM_QUERY or SVL_QUERY_QUEUE_INFO? http://docs.aws.amazon.com/redshift/latest/dg/r_SVL_QUERY_QUEUE_INFO.html
     }
+    dimension: pk {
+      primary_key: yes
+      sql: ${TABLE}.pk ;;
+    }
     #Looker Query Context '{"user_id":711,"history_id":38026310,"instance_slug":"186fb89f0c23199fffd36f1cdfb6152b"}
     dimension: query {
       description: "Redshift's Query ID"
       type: number
-      primary_key: yes
       link: {
         label: "Inspect"
         url: "/dashboards/redshift_model::redshift_query_inspection?query={{value}}"
