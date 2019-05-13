@@ -1,4 +1,4 @@
-view: redshift_etl_errors {
+view: redshift_etl_errors_core {
   derived_table: {
     sql: select starttime as error_time
         , filename as file_name

@@ -1,4 +1,4 @@
-view: redshift_plan_steps {
+view: redshift_plan_steps_core {
   #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {
     datagroup_trigger: nightly

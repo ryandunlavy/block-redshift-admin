@@ -1,4 +1,4 @@
-view: redshift_query_execution {
+view: redshift_query_execution_core {
   #For recent queries based on redshift_queries
   #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {

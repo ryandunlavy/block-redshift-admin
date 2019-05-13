@@ -5,7 +5,7 @@
   elements:
   - title: Table Load Summary
     name: Table Load Summary
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_data_loads
     type: table
     fields: [redshift_data_loads.root_bucket, redshift_data_loads.s3_path_clean, redshift_data_loads.file_stem,
@@ -29,7 +29,7 @@
     height: 13
   - title: Recent Files Loaded
     name: Recent Files Loaded
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_data_loads
     type: table
     fields: [redshift_data_loads.file_name, redshift_data_loads.hours_since_last_load]
@@ -54,7 +54,7 @@
     height: 14
   - title: Recent Load Errors
     name: Recent Load Errors
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_etl_errors
     type: table
     fields: [redshift_etl_errors.error_date, redshift_etl_errors.file_name, redshift_etl_errors.column_name,
@@ -80,7 +80,7 @@
     height: 13
   - title: Database Consumption
     name: Database Consumption
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_db_space
     type: table
     fields: [redshift_db_space.schema, redshift_db_space.table_stem, redshift_db_space.total_rows,

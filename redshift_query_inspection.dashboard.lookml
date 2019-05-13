@@ -5,7 +5,7 @@
   elements:
   - title: Time Executing
     name: Time Executing
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_queries
     type: single_value
     fields: [redshift_queries.total_time_executing]
@@ -51,7 +51,7 @@
     height: 3
   - title: Bytes Scanned
     name: Bytes Scanned
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_query_execution
     type: single_value
     fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
@@ -101,7 +101,7 @@
     height: 3
   - title: Query text
     name: Query text
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_queries
     type: table
     fields: [redshift_queries.text]
@@ -149,7 +149,7 @@
     height: 6
   - title: Bytes Distributed
     name: Bytes Distributed
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_query_execution
     type: single_value
     fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
@@ -198,7 +198,7 @@
     height: 3
   - title: Bytes Broadcast
     name: Bytes Broadcast
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_query_execution
     type: single_value
     fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
@@ -247,7 +247,7 @@
     height: 3
   - title: Rows Sorted
     name: Rows Sorted
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_query_execution
     type: single_value
     fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
@@ -298,7 +298,7 @@
     height: 3
   - title: Was Disk Based
     name: Was Disk Based
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_query_execution
     type: single_value
     fields: [redshift_query_execution.total_bytes_broadcast, redshift_query_execution.total_bytes_distributed,
@@ -350,7 +350,7 @@
     height: 3
   - title: Table Details
     name: Table Details
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_tables
     type: table
     fields: [redshift_tables.schema, redshift_tables.table, redshift_tables.rows_in_table,
@@ -401,7 +401,7 @@
     height: 6
   - title: Query Plan Costs
     name: Query Plan Costs
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_plan_steps
     type: table
     fields: [redshift_plan_steps.parent_step, redshift_plan_steps.step, redshift_plan_steps.step_description,
@@ -431,7 +431,7 @@
     height: 11
   - title: Query Plan
     name: Query Plan
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_plan_steps
     type: table
     fields: [redshift_plan_steps.step, redshift_plan_steps.parent_step, redshift_plan_steps.operation,
@@ -459,7 +459,7 @@
     height: 11
   - title: Query Execution
     name: Query Execution
-    model: redshift_model
+    model: redshift_admin
     explore: redshift_query_execution
     type: table
     fields: [redshift_query_execution.step, redshift_query_execution.label, redshift_query_execution.was_diskbased,

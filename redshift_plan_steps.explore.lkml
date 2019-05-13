@@ -1,57 +1,6 @@
-# # https://github.com/llooker/blocks_redshift_admin
-# #
-# # Make sure this is a connection where the database user has sufficient permissions (per above link)
-connection: "@{CONNECTION_NAME}"
-
-case_sensitive: no
-
-include: "redshift_*.dashboard"
-include: "redshift_*.view"
-
-datagroup: nightly {
-  sql_trigger: SELECT TIMEZONE('US/Pacific',GETDATE())::DATE;;
-}
-
-persist_with: nightly
-
-explore: redshift_data_loads {
+explore: redshift_plan_steps_core {
   hidden: yes
-}
-
-explore: redshift_db_space {
-  hidden: yes
-}
-
-explore: redshift_etl_errors {
-  hidden: yes
-}
-
-explore: redshift_tables {
-  hidden: yes
-  view_label: "[Redshift Tables]"
-  join: redshift_query_execution {
-    sql_on: ${redshift_query_execution.table_join_key}=${redshift_tables.table_join_key};;
-    relationship: one_to_many
-    type: left_outer
-    fields: [
-      any_restricted_scan,
-      count_scans,
-      percent_restricted_scan,
-      total_bytes_scanned,
-      total_rows_emitted,
-      emitted_rows_to_table_rows_ratio
-    ]
-  }
-  join: redshift_queries {
-    sql_on: ${redshift_queries.query} = ${redshift_query_execution.query} ;;
-    relationship: many_to_one
-    type: left_outer
-    fields: [query,start_date, time_executing, snippet, pdt, count,total_time_executing,time_executing_per_query]
-  }
-}
-
-explore: redshift_plan_steps {
-  hidden: yes
+  extension: required
   join: redshift_tables {
     sql_on: ${redshift_tables.table}=${redshift_plan_steps.table} ;;
     type: left_outer
@@ -104,20 +53,4 @@ explore: redshift_plan_steps {
     relationship: one_to_one
     fields: [operation,operation_argument,rows]
   }
-}
-
-explore: redshift_queries {
-  hidden: yes
-  persist_for: "0 seconds"
-}
-
-explore: redshift_slices {
-  hidden: yes
-  persist_for: "0 seconds"
-}
-
-explore: redshift_query_execution {
-  hidden: yes
-  persist_for: "0 seconds"
-  fields: [ALL_FIELDS*, -redshift_query_execution.emitted_rows_to_table_rows_ratio]
 }

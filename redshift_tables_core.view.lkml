@@ -1,4 +1,4 @@
-view: redshift_tables {
+view: redshift_tables_core {
   derived_table: {
     datagroup_trigger: nightly
     distribution_style: all

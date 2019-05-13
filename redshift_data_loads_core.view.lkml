@@ -1,4 +1,4 @@
-view: redshift_data_loads {
+view: redshift_data_loads_core {
   derived_table: {
     sql: select replace(regexp_substr(filename, '//[a-zA-Z0-9\-]+/'), '/', '') as root_bucket
         , replace(filename, split_part(filename, '/', regexp_count(filename, '/') + 1), '') as s3_path

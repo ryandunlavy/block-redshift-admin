@@ -1,4 +1,4 @@
-view: redshift_queries {
+view: redshift_queries_core {
   # Limited to last 24 hours of queries
   derived_table: {
     datagroup_trigger: nightly
