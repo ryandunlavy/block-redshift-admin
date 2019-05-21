@@ -47,7 +47,7 @@ view: redshift_queries_core {
       type: number
       link: {
         label: "Inspect"
-        url: "/dashboards/redshift_model::redshift_query_inspection?query={{value}}"
+        url: "/dashboards/redshift_admin::redshift_query_inspection?query={{value}}"
       }
     }
     dimension: text {
