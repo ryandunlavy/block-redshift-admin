@@ -39,12 +39,14 @@ view: redshift_queries_core {
     }
     dimension: pk {
       primary_key: yes
+      hidden:  yes
       sql: ${TABLE}.pk ;;
     }
     #Looker Query Context '{"user_id":711,"history_id":38026310,"instance_slug":"186fb89f0c23199fffd36f1cdfb6152b"}
     dimension: query {
       description: "Redshift's Query ID"
       type: number
+      value_format: "0"
       link: {
         label: "Inspect"
         url: "/dashboards/redshift_admin::redshift_query_inspection?query={{value}}"
