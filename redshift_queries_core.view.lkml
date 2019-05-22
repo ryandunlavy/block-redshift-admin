@@ -189,18 +189,20 @@ view: redshift_queries_core {
     }
     measure: percent_queued {
       type: number
-      value_format: "0.## \%"
-      sql: 100 * ${count_of_queued} / ${count}  ;;
+      value_format_name: percent_1
+      sql: 1.0*${count_of_queued} / ${count}  ;;
     }
     measure: total_time_in_queue {
       type: sum
       description: "Sum of time that queries were queued before running, in seconds"
       sql: ${time_in_queue};;
+      value_format_name: decimal_1
     }
     measure: total_time_executing {
       type: sum
       description: "Sum of time that queries were executing, in seconds"
       sql: ${time_executing};;
+      value_format_name: decimal_1
     }
     measure: total_time_overall {
       type: sum
@@ -208,14 +210,16 @@ view: redshift_queries_core {
       sql: ${time_in_queue} + ${time_executing}  ;;
     }
     measure: avg_time_in_queue {
-    type: average
-    description: "Average time that queries were queued before running, in seconds"
-    sql: ${time_in_queue};;
+      type: average
+      description: "Average time that queries were queued before running, in seconds"
+      sql: ${time_in_queue};;
+      value_format_name: decimal_1
     }
     measure: avg_time_executing {
-    type: average
-    description: "Average time that queries were executing, in seconds"
-    sql: ${time_executing};;
+      type: average
+      description: "Average time that queries were executing, in seconds"
+      sql: ${time_executing};;
+      value_format_name: decimal_1
     }
 
 
@@ -224,9 +228,9 @@ view: redshift_queries_core {
     #     description: "Sum of time from another table, for comparison"
     #     sql: ${time_elapsed}  ;;
     #   }
-    measure: time_executing_per_query {
-      type: number
-      sql: CASE WHEN ${count}<>0 THEN ${total_time_executing} / ${count} ELSE NULL END ;;
-      value_format_name: decimal_1
-    }
+#     measure: time_executing_per_query {
+#       type: number
+#       sql: CASE WHEN ${count}<>0 THEN ${total_time_executing} / ${count} ELSE NULL END ;;
+#       value_format_name: decimal_1
+#     }
   }
