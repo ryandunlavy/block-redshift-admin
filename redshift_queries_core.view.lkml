@@ -80,9 +80,23 @@ view: redshift_queries_core {
       group_label: "Looker Query Context"
     }
     dimension: pdt {
-      label: "Is PDT?"
+      label: "PDT Type"
       group_label: "Looker Query Context"
       description: "Either Prod, Dev, or No"
+      case: {
+        when: {
+          label: "Prod"
+          sql: ${TABLE}.pdt = 'Prod' ;;
+        }
+        when: {
+          label: "Dev"
+          sql: ${TABLE}.pdt = 'Dev' ;;
+        }
+        when: {
+          label: "Not a PDT"
+          sql: ${TABLE}.pdt = 'No' ;;
+        }
+      }
     }
 
     dimension_group: start {
