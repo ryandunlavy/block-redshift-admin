@@ -190,7 +190,7 @@ view: redshift_queries_core {
     measure: percent_queued {
       type: number
       value_format_name: percent_1
-      sql: 1.0*${count_of_queued} / ${count}  ;;
+      sql: 1.0*${count_of_queued} / NULLIF(${count}, 0)  ;;
     }
     measure: total_time_in_queue {
       type: sum
@@ -213,7 +213,7 @@ view: redshift_queries_core {
     measure: avg_time_in_queue {
       type: number
       description: "Average time that queries were queued before running, in seconds"
-      sql: 1.0*${total_time_in_queue}/COALESCE(SUM(${was_queued}::int), NULL);;
+      sql: 1.0*${total_time_in_queue}/NULLIF(SUM(${was_queued}::int), 0);;
       value_format_name: decimal_1
     }
     measure: avg_time_executing {
