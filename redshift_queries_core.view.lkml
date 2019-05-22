@@ -166,6 +166,7 @@ view: redshift_queries_core {
       sql: ${time_in_queue} + ${time_executing}  ;;
     }
     dimension: time_elapsed {
+      hidden: yes
       type: number
       description: "Amount of time (from another table, for comparison...)"
       sql: ${TABLE}.elapsed / 1000000 ;;
@@ -174,6 +175,10 @@ view: redshift_queries_core {
       type: yesno
       sql: ${TABLE}.total_queue_time > 0;;
     }
+
+
+    ### MEASURES ###
+
     measure: count {
       type: count
       drill_fields: [query, start_date, time_executing, pdt, looker_history_id, snippet ]
@@ -202,6 +207,18 @@ view: redshift_queries_core {
       description: "Sum of time that queries took (both queued and executing), in seconds"
       sql: ${time_in_queue} + ${time_executing}  ;;
     }
+    measure: avg_time_in_queue {
+    type: average
+    description: "Average time that queries were queued before running, in seconds"
+    sql: ${time_in_queue};;
+    }
+    measure: avg_time_executing {
+    type: average
+    description: "Average time that queries were executing, in seconds"
+    sql: ${time_executing};;
+    }
+
+
     #   measure: total_time_elapsed {
     #     type: sum
     #     description: "Sum of time from another table, for comparison"
