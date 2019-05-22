@@ -229,9 +229,10 @@ view: redshift_queries_core {
     #     description: "Sum of time from another table, for comparison"
     #     sql: ${time_elapsed}  ;;
     #   }
-#     measure: time_executing_per_query {
-#       type: number
-#       sql: CASE WHEN ${count}<>0 THEN ${total_time_executing} / ${count} ELSE NULL END ;;
-#       value_format_name: decimal_1
-#     }
+    measure: time_executing_per_query {
+      hidden: yes
+      type: number
+      sql: CASE WHEN ${count}<>0 THEN ${total_time_executing} / ${count} ELSE NULL END ;;
+      value_format_name: decimal_1
+    }
   }
