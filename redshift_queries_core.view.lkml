@@ -208,11 +208,12 @@ view: redshift_queries_core {
       type: sum
       description: "Sum of time that queries took (both queued and executing), in seconds"
       sql: ${time_in_queue} + ${time_executing}  ;;
+      value_format_name: decimal_1
     }
     measure: avg_time_in_queue {
-      type: average
+      type: number
       description: "Average time that queries were queued before running, in seconds"
-      sql: ${time_in_queue};;
+      sql: 1.0*${total_time_in_queue}/COALESCE(SUM(${was_queued}::int), NULL);;
       value_format_name: decimal_1
     }
     measure: avg_time_executing {
