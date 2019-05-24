@@ -28,14 +28,6 @@ view: redshift_queries_avg {
       sql: ${TABLE}.avg_time_executing::float ;;
     }
 
-    dimension: max_time_executing {
-      type: number
-    }
-
-    dimension: min_time_executing {
-      type: number
-    }
-
     dimension: avg_time_executing_tier_static {
       type: tier
       tiers: [0,5,10,20,30,40,50,60,90,120,180,240,300]
