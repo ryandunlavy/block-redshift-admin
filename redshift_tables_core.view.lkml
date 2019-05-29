@@ -11,9 +11,7 @@ view: redshift_tables_core {
         "table"::varchar,
         "encoded"::varchar,
         "diststyle"::varchar,
-        CASE WHEN regexp_instr("sortkey1",'[^\x00-\x7F]+') THEN 'Non-ASCII Char in Sort Key'
-                ELSE "sortkey1"::varchar
-                END,
+        REGEXP_REPLACE("sortkey1", '[^ -~]', '?')::varchar as "sortkey1",
         "max_varchar"::bigint,
         "sortkey1_enc"::varchar,
         "sortkey_num"::int,
