@@ -42,47 +42,59 @@ view: redshift_query_execution_core {
   }
   # or svl_query_report to not aggregate over slices under each step
   #using group by because sometimes steps are duplicated.seems to be when some slices are diskbased, others not
+
+  # DIMENSIONS
+
   dimension: step {
     type:  string
     sql: ${TABLE}.seg || '.' || ${TABLE}.step;;
     value_format_name: decimal_2
     order_by_field: step_sort
   }
+
   dimension: step_sort {
     hidden:  yes
     type: number
     sql: ${TABLE}.seg*10000 + ${TABLE}.step;;
   }
+
   dimension: query {
     type: number
     sql: ${TABLE}.query ;;
   }
+
   dimension: id {
     primary_key: yes
     type: string
     sql: ${TABLE}.id;;
   }
+
   dimension: label {
     type:  string
     sql: ${TABLE}.label ;;
   }
+
   dimension: operation {
     type:  string
     sql: ${TABLE}.operation ;;
   }
+
   dimension: table {
     type: string
     sql: ${TABLE}.table ;;
   }
+
   dimension: table_id {
     type: number
     sql: ${TABLE}.table_id ;;
   }
+
   dimension: table_join_key {
     hidden: yes
     type: string
     sql: ${TABLE}.table_join_key;;
   }
+
   dimension: was_diskbased {
     type: string
     label: "Was disk-based?"
@@ -96,6 +108,7 @@ view: redshift_query_execution_core {
           {% endif %}
     ;;
   }
+
   dimension: was_restricted_scan {
     type: yesno
     label: "Was the scan range-restricted?"
@@ -109,16 +122,19 @@ view: redshift_query_execution_core {
           {% endif %}
     ;;
   }
+
   dimension: step_average_slice_time {
     type: number
     description: "Average time among slices, in seconds, for this step"
     sql: ${TABLE}.avgtime/1000000 ;;
   }
+
   dimension: step_max_slice_time {
     type: number
     description: "Maximum time among slices, in seconds, for this step"
     sql: ${TABLE}.maxtime/1000000 ;;
   }
+
   dimension: step_skew {
     type: number
     description: "The ratio of max execution time vs avg execution time for this step among participating slices. (For information on how many slices participated in this step, check svl_query_report)"
@@ -133,24 +149,31 @@ view: redshift_query_execution_core {
           {% endif %}
     ;;
   }
+
   dimension: working_memory {
     type: number
     description: "Amount of working memory (in bytes) assigned to the query step"
     sql: ${TABLE}.workmem ;;
   }
+
   dimension: rows_out {
     type: number
     description: "For scans of permanent tables, the total number of rows emitted (before filtering rows marked for deletion, a.k.a ghost rows). If very different from Query Plan rows, stats should be updated"
     sql: ${TABLE}.rows_pre_filter ;;
   }
+
   dimension: bytes {
     type: number
     sql:  ${TABLE}.bytes ;;
   }
+
+  # MEASURES
+
   measure:  count {
     hidden: yes
     type: count
   }
+
   measure: any_disk_based {
     type: string
     sql: MAX(${was_diskbased}) ;;
@@ -164,6 +187,7 @@ view: redshift_query_execution_core {
       {% endif %}
     ;;
   }
+
   measure: any_restricted_scan {
     type: string
     sql: MAX(${was_restricted_scan}) ;;
@@ -177,15 +201,18 @@ view: redshift_query_execution_core {
       {% endif %}
     ;;
   }
+
   measure:  _count_restricted_scan {
     hidden: yes
     type:  sum
     sql: CASE WHEN ${operation}='scan' AND ${table} IS NOT NULL AND ${TABLE}.is_rrscan='t' THEN 1 ELSE 0 END ;;
   }
+
   measure: count_scans {
     type:sum
     sql: CASE WHEN ${operation}='scan' AND ${table} IS NOT NULL THEN 1 ELSE 0 END ;;
   }
+
   measure: percent_restricted_scan {
     type: number
     sql: CASE WHEN ${count_scans} = 0 THEN NULL
@@ -203,6 +230,7 @@ view: redshift_query_execution_core {
     ;;
     value_format_name: percent_1
   }
+
   measure: emitted_rows_to_table_rows_ratio {
     type: number
     sql: CASE WHEN SUM(${redshift_tables.rows_in_table}) = 0 OR ${count} = 0 THEN NULL
@@ -210,22 +238,27 @@ view: redshift_query_execution_core {
     # Using hard-coded SUM to avoid unneccessary symmetric aggregate just to check SUM <> 0
     value_format_name: percent_1
   }
+
   measure: total_bytes_distributed {
     type: sum
     sql: CASE WHEN ${operation} = 'dist' THEN ${bytes} ELSE 0 END ;;
   }
+
   measure: total_bytes_broadcast {
     type: sum
     sql: CASE WHEN ${operation} = 'bcast' THEN ${bytes} ELSE 0 END ;;
   }
+
   measure: total_bytes_scanned {
     type: sum
     sql: CASE WHEN ${TABLE}.operation = 'scan' THEN ${bytes} ELSE 0 END ;;
   }
+
   measure: total_rows_emitted {
     type: sum
     sql: CASE WHEN ${operation} = 'scan' THEN ${rows_out} ELSE 0 END ;;
   }
+
   measure: total_O_rows_sorted {
     hidden: yes
     type: sum
@@ -235,6 +268,7 @@ view: redshift_query_execution_core {
         ELSE 0
       END ;;
   }
+
   measure: total_rows_sorted_approx {
     type: number
     description: "Aggregates multiple n log(n) time-complexity sortings by comparing them to one sort that would have approximately the same time complexity"
@@ -246,10 +280,12 @@ view: redshift_query_execution_core {
           END;;
     value_format_name: decimal_0
   }
+
   measure: max_step_skew {
     type: max
     sql: ${step_skew} ;;
   }
+
   measure: average_step_skew {
     type: average
     sql: ${step_skew} ;;

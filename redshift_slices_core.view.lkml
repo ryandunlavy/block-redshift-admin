@@ -8,21 +8,29 @@ view: redshift_slices_core {
     sortkeys: ["node"]
     sql: SELECT slice,node FROM STV_SLICES;;
   }
+
+  # DIMENSIONS
+
   dimension: node{
     type: number
     value_format_name: id
     sql: ${TABLE}.node ;;
   }
+
   dimension: slice {
     type: number
     value_format_name: id
     sql: ${TABLE}.slice ;;
     primary_key: yes
   }
+
+  # MEASURES
+
   measure: nodes {
     type: count_distinct
     sql: ${node} ;;
   }
+
   measure:  slices {
     type: count_distinct
     sql: ${slice} ;;

@@ -10,35 +10,46 @@ view: redshift_data_loads_core {
        ;;
   }
 
+  # DIMENSIONS
+
   dimension: root_bucket {
     type: string
     sql: ${TABLE}.root_bucket ;;
   }
+
   dimension: s3_path {
     type: string
     sql: ${TABLE}.s3_path ;;
   }
+
   dimension: s3_path_clean {
     type: string
     sql: ${TABLE}.s3_path_clean ;;
   }
+
   dimension: file_name {
     type: string
     sql: ${TABLE}.file_name ;;
   }
+
   dimension: file_stem {
     type: string
     sql: ${TABLE}.file_stem ;;
   }
+
   dimension_group: load {
     type: time
     timeframes: [raw, time, date]
     sql: ${TABLE}.load_time ;;
   }
+
+  # MEASURES
+
   measure: most_recent_load {
     type: string
     sql: max(${load_raw}) ;;
   }
+
   measure: hours_since_last_load {
     type: number
     value_format_name: id

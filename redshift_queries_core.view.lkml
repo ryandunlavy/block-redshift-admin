@@ -37,11 +37,15 @@ view: redshift_queries_core {
     #STL_QUERY vs SVL_QLOG. STL_QUERY has more characters of query text (4000), but is only retained for "2 to 5 days"
     # STL_WLM_QUERY or SVL_QUERY_QUEUE_INFO? http://docs.aws.amazon.com/redshift/latest/dg/r_SVL_QUERY_QUEUE_INFO.html
     }
+
+    # DIMENSIONS
+
     dimension: pk {
       primary_key: yes
       hidden:  yes
       sql: ${TABLE}.pk ;;
     }
+
     #Looker Query Context '{"user_id":711,"history_id":38026310,"instance_slug":"186fb89f0c23199fffd36f1cdfb6152b"}
     dimension: query {
       description: "Redshift's Query ID"
@@ -52,12 +56,15 @@ view: redshift_queries_core {
         url: "/dashboards/redshift_admin::redshift_query_inspection?query={{value}}"
       }
     }
+
     dimension: text {
       alias: [querytxt]
     }
+
     dimension: snippet {
       alias: [substring]
     }
+
     dimension: looker_user_id {
       group_label: "Looker Query Context"
       type: number
@@ -67,6 +74,7 @@ view: redshift_queries_core {
         # ^ Note that in scenarios with multiple Looker instances, this may not be the right link!
       }
     }
+
     dimension: looker_history_id {
       group_label: "Looker Query Context"
       type: number
@@ -76,9 +84,11 @@ view: redshift_queries_core {
         # ^ Note that in scenarios with multiple Looker instances, this may not be the right link!
       }
     }
+
     dimension: looker_instance_slug {
       group_label: "Looker Query Context"
     }
+
     dimension: pdt {
       label: "PDT Type"
       group_label: "Looker Query Context"
@@ -104,20 +114,24 @@ view: redshift_queries_core {
       timeframes: [raw, minute,second, minute15, hour, hour_of_day, day_of_week, date]
       sql: ${TABLE}.start_time ;;
     }
+
     dimension: service_class {
       type: string
       sql: ${TABLE}.service_class ;;
     }
+
     dimension: time_in_queue {
       type: number
       description: "Amount of time that a query was queued before running, in seconds"
       sql: ${TABLE}.total_queue_time /1000000;;
     }
+
     dimension: time_executing {
       type: number
       description: "Amount of time that a query was executing, in seconds"
       sql: ${TABLE}.total_exec_time::float /1000000;;
     }
+
     dimension: time_executing_roundup1 {
       description: "Time executing, rounded up to the nearest 1 second"
       group_label: "Time Executing Buckets"
@@ -126,6 +140,7 @@ view: redshift_queries_core {
       sql: CEILING(${TABLE}.total_exec_time::float/1000000) ;;
       value_format_name: decimal_0
     }
+
     dimension: time_executing_roundup5 {
       description: "Time executing, rounded up to the nearest 5 seconds"
       group_label: "Time Executing Buckets"
@@ -134,6 +149,7 @@ view: redshift_queries_core {
       sql: CEILING(${TABLE}.total_exec_time::float/1000000 / 5)*5 ;;
       value_format_name: decimal_0
     }
+
     dimension: time_executing_tier {
       description: "Time executing, output as a descriptive string"
       group_label: "Time Executing Buckets"
@@ -144,6 +160,7 @@ view: redshift_queries_core {
       sql: ${TABLE}.total_exec_time::float/1000000 ;;
       value_format_name: decimal_0
     }
+
     dimension: time_executing_roundup10 {
       description: "Time executing, rounded up to the nearest 10 seconds"
       group_label: "Time Executing Buckets"
@@ -152,6 +169,7 @@ view: redshift_queries_core {
       sql: CEILING(${TABLE}.total_exec_time::float/1000000 / 10)*10 ;;
       value_format_name: decimal_0
     }
+
     dimension: time_executing_roundup15 {
       description: "Time executing, rounded up to the nearest 15 seconds"
       group_label: "Time Executing Buckets"
@@ -160,62 +178,72 @@ view: redshift_queries_core {
       sql: ${TABLE}.total_exec_time::float/1000000 / 15)*15 ;;
       value_format_name: decimal_0
     }
+
     dimension: time_overall {
       type: number
       description: "Amount of time that a query took (both queued and executing), in seconds"
       sql: ${time_in_queue} + ${time_executing}  ;;
     }
+
     dimension: time_elapsed {
       hidden: yes
       type: number
       description: "Amount of time (from another table, for comparison...)"
       sql: ${TABLE}.elapsed / 1000000 ;;
     }
+
     dimension:  was_queued {
       type: yesno
       sql: ${TABLE}.total_queue_time > 0;;
     }
 
 
-    ### MEASURES ###
+    # MEASURES
 
     measure: count {
       type: count
       drill_fields: [query, start_date, time_executing, pdt, looker_history_id, snippet ]
     }
+
     measure: count_of_queued {
       type: sum
       sql: ${was_queued}::int ;;
     }
+
     measure: percent_queued {
       type: number
       value_format_name: percent_1
       sql: 1.0*${count_of_queued} / NULLIF(${count}, 0)  ;;
     }
+
     measure: total_time_in_queue {
       type: sum
       description: "Sum of time that queries were queued before running, in seconds"
       sql: ${time_in_queue};;
       value_format_name: decimal_1
     }
+
     measure: total_time_executing {
       type: sum
       description: "Sum of time that queries were executing, in seconds"
       sql: ${time_executing};;
       value_format_name: decimal_1
     }
+
     measure: total_time_overall {
       type: sum
       description: "Sum of time that queries took (both queued and executing), in seconds"
       sql: ${time_in_queue} + ${time_executing}  ;;
       value_format_name: decimal_1
     }
+
     measure: avg_time_in_queue {
       type: number
       description: "Average time that queries were queued before running, in seconds"
       sql: 1.0*${total_time_in_queue}/NULLIF(SUM(${was_queued}::int), 0);;
       value_format_name: decimal_1
     }
+
     measure: avg_time_executing {
       type: average
       description: "Average time that queries were executing, in seconds"
@@ -228,6 +256,7 @@ view: redshift_queries_core {
     #     description: "Sum of time from another table, for comparison"
     #     sql: ${time_elapsed}  ;;
     #   }
+
     measure: time_executing_per_query {
       hidden: yes
       type: number

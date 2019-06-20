@@ -24,26 +24,34 @@ view: redshift_db_space_core {
       group by 1,2
        ;;
   }
+
+  # DIMENSIONS
+
   dimension: pk {
     sql: ${table} || ${schema} ;;
     primary_key: yes
   }
+
   dimension: table {
     type: string
     sql: ${TABLE}.table ;;
   }
+
   dimension: schema {
     type: string
     sql: ${TABLE}.schema ;;
   }
+
   dimension: megabytes {
     type: number
     sql: ${TABLE}.megabytes ;;
   }
+
   dimension: rows {
     type: number
     sql: ${TABLE}.rows ;;
   }
+
   dimension: table_stem {
     sql: case
         when (${table} ~ '(lr|lc)\\$[a-zA-Z0-9]+_.*')
@@ -52,14 +60,19 @@ view: redshift_db_space_core {
       end
        ;;
   }
+
+  # MEASURES
+
   measure: total_megabytes {
     type: sum
     sql: ${megabytes} ;;
   }
+
   measure: total_rows {
     type: sum
     sql: ${rows} ;;
   }
+
   measure: total_tables {
     type: count_distinct
     sql: ${table} ;;
