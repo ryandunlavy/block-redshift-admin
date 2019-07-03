@@ -25,7 +25,7 @@ view: redshift_db_space_core {
        ;;
   }
 
-  # DIMENSIONS
+  # DIMENSIONS #
 
   dimension: pk {
     sql: ${table} || ${schema} ;;
@@ -61,7 +61,7 @@ view: redshift_db_space_core {
        ;;
   }
 
-  # MEASURES
+  # MEASURES #
 
   measure: total_megabytes {
     type: sum

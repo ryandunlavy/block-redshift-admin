@@ -47,7 +47,7 @@ view: redshift_plan_steps_core {
 
     }
 
-    # DIMENSIONS
+    # DIMENSIONS #
 
     dimension: pk {
       sql: ${TABLE}.pk ;;
@@ -204,7 +204,7 @@ view: redshift_plan_steps_core {
       sql: ${TABLE}.incremental_step_cost ;;
     }
 
-    # MEASURES
+    # MEASURES #
 
     measure: count {
       type: count
@@ -235,7 +235,7 @@ view: redshift_plan_steps_core {
       sql: ${network_distribution_bytes} ;;
     }
 
-    # SETS
+    # SETS #
 
     set: steps_drill {
       fields: [

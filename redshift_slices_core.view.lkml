@@ -9,7 +9,7 @@ view: redshift_slices_core {
     sql: SELECT slice,node FROM STV_SLICES;;
   }
 
-  # DIMENSIONS
+  # DIMENSIONS #
 
   dimension: node{
     type: number
@@ -24,7 +24,7 @@ view: redshift_slices_core {
     primary_key: yes
   }
 
-  # MEASURES
+  # MEASURES #
 
   measure: nodes {
     type: count_distinct

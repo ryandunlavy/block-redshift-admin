@@ -9,14 +9,14 @@ view: redshift_queries_avg {
       }
     }
 
-    # PARAMETERS
+    # PARAMETERS #
 
     parameter: dynamic_tier_size {
       default_value: "5"
       type: number
     }
 
-    # DIMENSIONS
+    # DIMENSIONS #
 
     dimension: query {
       primary_key: yes
@@ -56,7 +56,7 @@ view: redshift_queries_avg {
       hidden: yes
   }
 
-  # MEASURES
+  # MEASURES #
 
     measure: count {
       type: count

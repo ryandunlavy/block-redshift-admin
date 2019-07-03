@@ -26,7 +26,7 @@ view: redshift_tables_core {
     ;;
   }
 
-  # DIMENSIONS
+  # DIMENSIONS #
 
   # Identifiers {
   dimension: table_id {
@@ -217,7 +217,7 @@ view: redshift_tables_core {
   ;;
   }
 
-  # MEASURES
+  # MEASURES #
 
   measure: count {
     type: count

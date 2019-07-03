@@ -12,7 +12,7 @@ view: redshift_etl_errors_core {
        ;;
   }
 
-  # DIMENSIONS
+  # DIMENSIONS #
 
   dimension_group: error {
     type: time

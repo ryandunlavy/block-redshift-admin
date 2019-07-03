@@ -38,7 +38,7 @@ view: redshift_queries_core {
     # STL_WLM_QUERY or SVL_QUERY_QUEUE_INFO? http://docs.aws.amazon.com/redshift/latest/dg/r_SVL_QUERY_QUEUE_INFO.html
     }
 
-    # DIMENSIONS
+    # DIMENSIONS #
 
     dimension: pk {
       primary_key: yes
@@ -198,7 +198,7 @@ view: redshift_queries_core {
     }
 
 
-    # MEASURES
+    # MEASURES #
 
     measure: count {
       type: count

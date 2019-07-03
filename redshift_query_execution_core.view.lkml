@@ -43,7 +43,7 @@ view: redshift_query_execution_core {
   # or svl_query_report to not aggregate over slices under each step
   #using group by because sometimes steps are duplicated.seems to be when some slices are diskbased, others not
 
-  # DIMENSIONS
+  # DIMENSIONS #
 
   dimension: step {
     type:  string
@@ -167,7 +167,7 @@ view: redshift_query_execution_core {
     sql:  ${TABLE}.bytes ;;
   }
 
-  # MEASURES
+  # MEASURES #
 
   measure:  count {
     hidden: yes

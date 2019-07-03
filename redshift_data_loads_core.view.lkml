@@ -10,7 +10,7 @@ view: redshift_data_loads_core {
        ;;
   }
 
-  # DIMENSIONS
+  # DIMENSIONS #
 
   dimension: root_bucket {
     type: string
@@ -43,7 +43,7 @@ view: redshift_data_loads_core {
     sql: ${TABLE}.load_time ;;
   }
 
-  # MEASURES
+  # MEASURES #
 
   measure: most_recent_load {
     type: string
