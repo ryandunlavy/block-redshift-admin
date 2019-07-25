@@ -11,10 +11,11 @@ view: redshift_slices_core {
 
   # DIMENSIONS #
 
-  dimension: node{
+  dimension: node {
     type: number
     value_format_name: id
     sql: ${TABLE}.node ;;
+    description: "Cluster node where the slice is located"
   }
 
   dimension: slice {
@@ -22,6 +23,7 @@ view: redshift_slices_core {
     value_format_name: id
     sql: ${TABLE}.slice ;;
     primary_key: yes
+    description: "Node slice"
   }
 
   # MEASURES #

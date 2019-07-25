@@ -47,12 +47,14 @@ view: redshift_tables_core {
     group_label: " Identifiers"
     type: string
     sql: ${TABLE}.database ;;
+    description: "Database name"
   }
 
   dimension: schema {
     group_label: " Identifiers"
     type: string
     sql: ${TABLE}.schema ;;
+    description: "Schema name"
   }
 
   dimension: table {
@@ -80,6 +82,7 @@ view: redshift_tables_core {
     group_label: "Size (Table)"
     type: number
     sql: ${TABLE}.tbl_rows ;;
+    description: "Total number of rows in the table. This value includes rows marked for deletion, but not yet vacuumed"
   }
 
   dimension: size {
@@ -135,6 +138,7 @@ view: redshift_tables_core {
           {{ rendered_value }}
         {% endif %}
         ;;
+    description: "Distribution style or distribution key column, if key distribution is defined"
   }
   dimension: skew_rows {
     group_label: "Distribution"
@@ -156,7 +160,7 @@ view: redshift_tables_core {
   # Sorting {
   dimension: sortkey {
     group_label: "Sorting"
-    description: "First sort key"
+    description: "First column in the sort key, if a sort key is defined"
     type: string
     sql: ${TABLE}.sortkey1 ;;
   }
@@ -172,6 +176,7 @@ view: redshift_tables_core {
     group_label: "Sorting"
     type: number
     sql: ${TABLE}.sortkey_num ;;
+    description: "Number of columns defined as sort keys"
   }
 
   dimension: unsorted {

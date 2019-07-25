@@ -41,6 +41,7 @@ view: redshift_data_loads_core {
     type: time
     timeframes: [raw, time, date]
     sql: ${TABLE}.load_time ;;
+    description: "Time that this entry was last updated"
   }
 
   # MEASURES #
