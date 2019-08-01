@@ -18,9 +18,9 @@
   ],
   "auxiliary_projects": [
     {
-      "git_uri": "git://github.com/looker/block-snowflake-usage-config",
-      "git_ref": "287923b5b1988ed1bf8cf7e5dae0bc0f98f82779",
-      "label": "Block Bigquery Optimization Config Label",
+      "git_uri": "git://github.com/looker/block-redshift-admin-config",
+      "git_ref": "1f24c0e87f520157114848e93d954f0ce4836635",
+      "label": "Block Redshift Admin Config Label",
       "constant_name": "CONFIG_PROJECT_NAME"
     }
   ]
