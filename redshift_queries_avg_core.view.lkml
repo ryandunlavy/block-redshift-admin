@@ -1,4 +1,10 @@
+include: "//@{CONFIG_PROJECT_NAME}/redshift_queries_avg_config.view"
+
 view: redshift_queries_avg {
+  extends: [redshift_queries_avg_config]
+}
+
+view: redshift_queries_avg_core {
 # Added to generate histogram of average query runtimes
 # If necessary, uncomment the line below to include explore_source.
 # include: "redshift_admin.model.lkml"

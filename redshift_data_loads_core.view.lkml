@@ -1,3 +1,9 @@
+include: "//@{CONFIG_PROJECT_NAME}/redshift_data_loads_config.view.lkml"
+
+view: redshift_data_loads {
+  extends: [redshift_data_loads_config]
+}
+
 view: redshift_data_loads_core {
   derived_table: {
     sql: select replace(regexp_substr(filename, '//[a-zA-Z0-9\-]+/'), '/', '') as root_bucket

@@ -1,3 +1,9 @@
+include: "//@{CONFIG_PROJECT_NAME}/redshift_query_execution_config.view"
+
+view: redshift_query_execution {
+  extends: [redshift_query_execution_config]
+}
+
 view: redshift_query_execution_core {
   #For recent queries based on redshift_queries
   #description: "Steps from the query planner for recent queries to Redshift"

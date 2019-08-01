@@ -1,3 +1,9 @@
+include: "//@{CONFIG_PROJECT_NAME}/redshift_queries_config.view"
+
+view: redshift_queries {
+  extends: [redshift_queries_config]
+}
+
 view: redshift_queries_core {
   # Limited to last 24 hours of queries
   derived_table: {

@@ -1,3 +1,9 @@
+include: "//@{CONFIG_PROJECT_NAME}/redshift_plan_steps_config.view"
+
+view: redshift_plan_steps {
+  extends: [redshift_plan_steps_config]
+}
+
 view: redshift_plan_steps_core {
   #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {

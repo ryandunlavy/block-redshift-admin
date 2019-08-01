@@ -1,3 +1,9 @@
+include: "//@{CONFIG_PROJECT_NAME}/redshift_slices_config.view"
+
+view: redshift_slices {
+  extends: [redshift_slices_config]
+}
+
 view: redshift_slices_core {
   # http://docs.aws.amazon.com/redshift/latest/dg/r_STV_SLICES.html
   # Use the STV_SLICES table to view the current mapping of a slice to a node.
