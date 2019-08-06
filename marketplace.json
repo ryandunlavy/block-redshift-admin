@@ -18,7 +18,7 @@
   ],
   "auxiliary_projects": [
     {
-      "git_uri": "git://github.com/looker/block-redshift-admin-config",
+      "git_uri": "git://github.com/looker/block-redshift-admin-config.git",
       "git_ref": "1f24c0e87f520157114848e93d954f0ce4836635",
       "label": "Block Redshift Admin Config Label",
       "constant_name": "CONFIG_PROJECT_NAME"
