@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_queries_config.view"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_queries.view"
 
 view: redshift_queries {
   extends: [redshift_queries_config]

@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_db_space_config.view"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_db_space.view"
 
 view: redshift_db_space {
   extends: [redshift_db_space_config]

@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_tables_config.view"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_tables.view"
 
 view: redshift_tables {
   extends: [redshift_tables_config]

@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_data_loads_config.view.lkml"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_data_loads.view.lkml"
 
 view: redshift_data_loads {
   extends: [redshift_data_loads_config]

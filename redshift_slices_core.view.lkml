@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_slices_config.view"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_slices.view"
 
 view: redshift_slices {
   extends: [redshift_slices_config]

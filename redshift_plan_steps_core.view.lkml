@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_plan_steps_config.view"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_plan_steps.view"
 
 view: redshift_plan_steps {
   extends: [redshift_plan_steps_config]

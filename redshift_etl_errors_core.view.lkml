@@ -1,4 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_etl_errors_config.view"
+include: "//@{CONFIG_PROJECT_NAME}/redshift_etl_errors.view"
 
 view: redshift_etl_errors {
   extends: [redshift_etl_errors_config]
