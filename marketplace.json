@@ -3,7 +3,7 @@
   "category_label": "Tools",
   "branding": {
     "image_uri": "https://wwwstatic-a.lookercdn.com/blocks/logos/aws.png",
-    "tagline": "Fine-tune your Redshift deployment with a comprehensive view of performance and cost"
+    "tagline": "Fine-tune your Redshift deployment with a comprehensive view of performance and cost."
   },
 
   "constants": {
