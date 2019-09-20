@@ -59,7 +59,7 @@ view: redshift_queries_core {
       value_format: "0"
       link: {
         label: "Inspect"
-        url: "/dashboards/redshift_admin::redshift_query_inspection?query={{value}}"
+        url: "/dashboards/block_redshift_admin::redshift_query_inspection?query={{value}}"
       }
     }
 
