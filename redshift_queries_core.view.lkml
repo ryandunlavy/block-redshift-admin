@@ -257,12 +257,6 @@ view: redshift_queries_core {
       value_format_name: decimal_1
     }
 
-    #   measure: total_time_elapsed {
-    #     type: sum
-    #     description: "Sum of time from another table, for comparison"
-    #     sql: ${time_elapsed}  ;;
-    #   }
-
     measure: time_executing_per_query {
       hidden: yes
       type: number

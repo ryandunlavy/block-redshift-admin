@@ -8,7 +8,7 @@ view: redshift_tables_core {
   derived_table: {
     datagroup_trigger: nightly
     distribution_style: all
-    indexes: ["table_id","table"] # "indexes" translates to an interleaved sort key for Redshift
+    indexes: ["table_id","table"]
     # http://docs.aws.amazon.com/redshift/latest/dg/r_SVV_TABLE_INFO.html
     sql: select
         "database"::varchar,

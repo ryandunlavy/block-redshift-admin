@@ -5,8 +5,7 @@ view: redshift_query_execution {
 }
 
 view: redshift_query_execution_core {
-  #For recent queries based on redshift_queries
-  #description: "Steps from the query planner for recent queries to Redshift"
+
   derived_table: {
     datagroup_trigger: nightly
     distribution: "query"
@@ -46,8 +45,6 @@ view: redshift_query_execution_core {
         GROUP BY query, seg, step, label
       ;;
   }
-  # or svl_query_report to not aggregate over slices under each step
-  #using group by because sometimes steps are duplicated.seems to be when some slices are diskbased, others not
 
   # DIMENSIONS #
 
@@ -280,7 +277,6 @@ view: redshift_query_execution_core {
     description: "Aggregates multiple n log(n) time-complexity sortings by comparing them to one sort that would have approximately the same time complexity"
     #http://cs.stackexchange.com/questions/44944/n-log-n-c-what-are-some-good-approximations-of-this
     #1st answer with an added first order Newton approximation
-    # https://docs.google.com/a/looker.com/spreadsheets/d/1mT3rddVH61KQzeULjfWVtnkweZ_gsCmeMhOFB8T1elo/edit?usp=sharing
     sql:CASE WHEN ${total_O_rows_sorted}<2 THEN ${total_O_rows_sorted}
           ELSE LN(2)*${total_O_rows_sorted}*(1+LN(ln((${total_O_rows_sorted}/LN(${total_O_rows_sorted})*LN(2)))/LN(2))/LN(2)/(LN((${total_O_rows_sorted}/LN(${total_O_rows_sorted})*LN(2)))/LN(2)))/LN(${total_O_rows_sorted})
           END;;
