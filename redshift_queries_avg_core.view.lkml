@@ -5,9 +5,6 @@ view: redshift_queries_avg {
 }
 
 view: redshift_queries_avg_core {
-# Added to generate histogram of average query runtimes
-# If necessary, uncomment the line below to include explore_source.
-# include: "redshift_admin.model.lkml"
     derived_table: {
       explore_source: redshift_queries {
         column: query {}

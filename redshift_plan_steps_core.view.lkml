@@ -5,7 +5,6 @@ view: redshift_plan_steps {
 }
 
 view: redshift_plan_steps_core {
-  #description: "Steps from the query planner for recent queries to Redshift"
   derived_table: {
     datagroup_trigger: nightly
     distribution: "query"
@@ -49,7 +48,6 @@ view: redshift_plan_steps_core {
           ON redshift_plan_steps.query = x.query AND redshift_plan_steps.nodeid = x.parentid
         ORDER BY 1,3
     ;;
-    #TODO?: Currently not extracting the sequential scan column, but I'm not sure if this is useful to extract. What's more useful as far as I can tell are the fields in the filter (operation argument)
 
     }
 
@@ -75,7 +73,6 @@ view: redshift_plan_steps_core {
 
     dimension: query_step {
       sql: ${query}||'.'||${step} ;;
-      #primary_key: yes #Unfortunately not, because all CTE plans are labeled as step 0
       hidden: yes
     }
 
@@ -141,7 +138,6 @@ view: redshift_plan_steps_core {
     }
 
     dimension: network_distribution_bytes {
-      #TODO: Multiply by number of nodes if BCAST?
       description: "Bytes from inner and outer children needing to be distributed or broadcast. (For broadcast, this value does not multiply by the number of nodes broadcast to.)"
       sql: CASE
               WHEN ${network_distribution_type} ILIKE '%INNER%' THEN ${inner_child.bytes}
