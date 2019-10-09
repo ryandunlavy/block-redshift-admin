@@ -1,6 +1,6 @@
 {
   "label": "Amazon Redshift Administration",
-  "category_label": "Tools",
+  "category_label": "Models",
   "branding": {
     "image_uri": "https://wwwstatic-a.lookercdn.com/blocks/logos/aws.png",
     "tagline": "Fine-tune your Redshift deployment with a comprehensive view of performance and cost."
