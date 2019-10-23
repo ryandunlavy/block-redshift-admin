@@ -5,6 +5,7 @@ include: "*.explore.lkml"
 include: "*.dashboard.lookml"
 include: "//@{CONFIG_PROJECT_NAME}/*.view.lkml"
 include: "//@{CONFIG_PROJECT_NAME}/*.model.lkml"
+include: "//@{CONFIG_PROJECT_NAME}/*.dashboard"
 
 explore: redshift_data_loads {
   extends: [redshift_data_loads_config]
