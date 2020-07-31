@@ -156,7 +156,7 @@ view: redshift_tables_core {
               <span style="color:darkred">{{ rendered_value }}</span>
             {% elsif value >= 25 %}
               <span style="color:darkorange">{{ rendered_value }}</span>
-            {% else value >= 75 %}
+            {% else %}
               {{ rendered_value }}
             {% endif %}
       ;;
