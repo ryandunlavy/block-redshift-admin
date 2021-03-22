@@ -1,4 +1,5 @@
 - dashboard: redshift_query_inspection
+  preferred_viewer: dashboards-next
   title: Redshift Query Inspection
   layout: newspaper
   query_timezone: query_saved

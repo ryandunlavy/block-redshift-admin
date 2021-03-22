@@ -1,4 +1,5 @@
 - dashboard: redshift_admin
+  preferred_viewer: dashboards-next
   title: Redshift Admin
   layout: newspaper
   query_timezone: query_saved
