@@ -17,9 +17,9 @@
 
 ### Block Structure
 
-* **Redshift Views** - This Block consists of several derived tables based on the System Tables, which we've consolidated into one single view file.
+** Redshift Views** - This Block consists of several derived tables based on the System Tables, which we've consolidated into one single view file.
 
-* **Dashboards** - Due to the nature in which this data is displayed, this Block only exposes Dashboards as starting points for exploration, rather than using individual "Explore" pages. Start from a dashboard, then drill into any tile to start free-form exploration.
+**Dashboards** - Due to the nature in which this data is displayed, this Block only exposes Dashboards as starting points for exploration, rather than using individual "Explore" pages. Start from a dashboard, then drill into any tile to start free-form exploration.
 
 
 ### Implementation Instructions / Customizations ##
@@ -49,9 +49,6 @@
 
 Check our [Looker Discourse article](https://discourse.looker.com/t/optimizing-redshift-performance-with-lookers-redshift-block/4110) for an overview of common performance issues, and suggestions to resolve them.
 
-### What if I find an error? Suggestions for improvements?
-
-Great! Blocks were designed for continuous improvement through the help of the entire Looker community and we'd love your input. To report an error or improvement recommendation, please reach out to Looker support via email to support@looker.com or via chat to submit a request. Please be as detailed as possible in your explanation and we'll address it as quick as we can.
 
 ### Known Issues
 
