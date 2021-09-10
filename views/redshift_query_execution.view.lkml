@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_query_execution.view"
-
 view: redshift_query_execution {
-  extends: [redshift_query_execution_config]
-}
-
-view: redshift_query_execution_core {
 
   derived_table: {
     datagroup_trigger: nightly

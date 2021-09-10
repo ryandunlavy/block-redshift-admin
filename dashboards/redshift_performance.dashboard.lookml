@@ -23,7 +23,7 @@
     height: 2
   - title: Top Network Distribution Operations
     name: Top Network Distribution Operations
-    model: block_redshift_admin
+    model: block_redshift_admin_v2
     explore: redshift_plan_steps
     type: table
     fields: [redshift_plan_steps.network_distribution_type, redshift_plan_steps.operation_argument,
@@ -67,7 +67,7 @@
     height: 6
   - title: Query Count By Run Time Tier
     name: Query Count By Run Time Tier
-    model: block_redshift_admin
+    model: block_redshift_admin_v2
     explore: redshift_queries
     type: looker_column
     fields: [redshift_queries.count, redshift_queries.time_executing_tier]
@@ -125,7 +125,7 @@
     height: 6
   - title: Top 10 Longest Running Queries
     name: Top 10 Longest Running Queries
-    model: block_redshift_admin
+    model: block_redshift_admin_v2
     explore: redshift_queries
     type: looker_bar
     fields: [redshift_queries.query, redshift_queries.snippet, redshift_queries.total_time_executing]
@@ -189,7 +189,7 @@
     height: 6
   - title: Network distribution breakdown
     name: Network distribution breakdown
-    model: block_redshift_admin
+    model: block_redshift_admin_v2
     explore: redshift_plan_steps
     type: looker_pie
     fields: [redshift_plan_steps.network_distribution_type, redshift_queries.total_time_executing]
@@ -223,7 +223,7 @@
     height: 6
   - title: Queries Submitted & Queued by Hour (Last 4 Weeks)
     name: Queries Submitted & Queued by Hour (Last 4 Weeks)
-    model: block_redshift_admin
+    model: block_redshift_admin_v2
     explore: redshift_queries
     type: looker_line
     fields: [redshift_queries.start_hour, redshift_queries.count, redshift_queries.count_of_queued,
@@ -298,7 +298,7 @@
     default_value: ''
     allow_multiple_values: true
     required: false
-    model: block_redshift_admin
+    model: block_redshift_admin_v2
     explore: redshift_queries
     listens_to_filters: []
     field: redshift_queries.pdt
