@@ -1,6 +1,6 @@
-explore: redshift_queries_core {
+include: "/views/*.view"
+explore: redshift_queries {
   hidden: yes
-  extension: required
   persist_for: "0 seconds"
   join: redshift_queries_avg {
     relationship: many_to_one

@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_slices.view"
-
 view: redshift_slices {
-  extends: [redshift_slices_config]
-}
-
-view: redshift_slices_core {
   # http://docs.aws.amazon.com/redshift/latest/dg/r_STV_SLICES.html
   # Use the STV_SLICES table to view the current mapping of a slice to a node.
   # This table is visible to all users. Superusers can see all rows; regular users can see only their own data.

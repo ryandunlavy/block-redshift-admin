@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_tables.view"
-
 view: redshift_tables {
-  extends: [redshift_tables_config]
-}
-
-view: redshift_tables_core {
   derived_table: {
     datagroup_trigger: nightly
     distribution_style: all

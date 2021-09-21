@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_queries_avg.view"
-
 view: redshift_queries_avg {
-  extends: [redshift_queries_avg_config]
-}
-
-view: redshift_queries_avg_core {
     derived_table: {
       explore_source: redshift_queries {
         column: query {}

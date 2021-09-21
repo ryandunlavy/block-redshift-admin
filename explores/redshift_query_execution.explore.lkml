@@ -1,6 +1,6 @@
-explore: redshift_query_execution_core {
+include: "/views/*.view"
+explore: redshift_query_execution {
   hidden: yes
-  extension: required
   persist_for: "0 seconds"
   fields: [ALL_FIELDS*, -redshift_query_execution.emitted_rows_to_table_rows_ratio]
 }

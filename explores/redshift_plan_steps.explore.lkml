@@ -1,6 +1,6 @@
-explore: redshift_plan_steps_core {
+include: "/views/*.view"
+explore: redshift_plan_steps {
   hidden: yes
-  extension: required
   join: redshift_tables {
     sql_on: ${redshift_tables.table}=${redshift_plan_steps.table} ;;
     type: left_outer

@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_etl_errors.view"
-
 view: redshift_etl_errors {
-  extends: [redshift_etl_errors_config]
-}
-
-view: redshift_etl_errors_core {
   derived_table: {
     sql: select starttime as error_time
         , filename as file_name

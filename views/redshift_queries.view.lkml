@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_queries.view"
-
 view: redshift_queries {
-  extends: [redshift_queries_config]
-}
-
-view: redshift_queries_core {
   # Limited to last 24 hours of queries
   derived_table: {
     datagroup_trigger: nightly
@@ -59,7 +53,7 @@ view: redshift_queries_core {
       value_format: "0"
       link: {
         label: "Inspect"
-        url: "/dashboards/block_redshift_admin::redshift_query_inspection?query={{value}}"
+        url: "/dashboards/block_redshift_admin_v2::redshift_query_inspection?query={{value}}"
       }
     }
 

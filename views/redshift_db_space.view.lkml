@@ -1,10 +1,4 @@
-include: "//@{CONFIG_PROJECT_NAME}/redshift_db_space.view"
-
 view: redshift_db_space {
-  extends: [redshift_db_space_config]
-}
-
-view: redshift_db_space_core {
   derived_table: {
     sql: select name as table
         , trim(pgn.nspname) as schema
