@@ -7,7 +7,7 @@ view: redshift_tables {
     sql: select
         "database"::varchar,
         "schema"::varchar,
-        "Table_id"::bigint,
+        "table_id"::bigint,
         "table"::varchar,
         "encoded"::varchar,
         "diststyle"::varchar,
